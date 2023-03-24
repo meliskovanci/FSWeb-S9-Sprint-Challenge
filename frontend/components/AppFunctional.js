@@ -81,7 +81,14 @@ export default function AppFunctional(props) {
       setSteps(steps +1)
   } 
   else {
-      setMessage(`${yon} a gidilmiyor!`)
+    if(yon === "sağ") {
+      setMessage(`Sağa gidemezsiniz`)}
+      else if(yon === "sol") {
+        setMessage(`Sola gidemezsiniz`)}
+        else if(yon === "yukarı") {
+          setMessage(`Yukarıya gidemezsiniz`)}
+          else {
+            setMessage(`Aşağıya gidemezsiniz`)}
   }
   }
   
@@ -98,6 +105,9 @@ export default function AppFunctional(props) {
   }
 
   function onSubmit(evt) {
+    if (email === "") {
+      setMessage("Ouch: email is required")
+    } else{
     // payloadu POST etmek için bir submit handlera da ihtiyacınız var.
     evt.preventDefault(evt)
 
@@ -119,7 +129,7 @@ export default function AppFunctional(props) {
 
   }
     
-  
+}
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
@@ -151,7 +161,7 @@ export default function AppFunctional(props) {
         <button onClick={reset} id="reset">reset</button>
       </div>
       <form onSubmit= {onSubmit}>
-        <input onChange={onChange} id="email" type="email" placeholder="email girin"></input>
+        <input onChange={onChange} value={email} id="email" type="email" placeholder="email girin"></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
