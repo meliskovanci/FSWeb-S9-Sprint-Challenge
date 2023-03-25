@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 
 
@@ -17,7 +17,7 @@ export default function AppFunctional(props) {
   const initialGrid = [
     [1, 1], [2, 1], [3, 1],
     [1, 2], [2, 2], [3, 2],
-    [1, 3], [2, 3], [3, 3],
+    [1, 3], [2, 3], [3, 3]
   ]
 
 
@@ -30,8 +30,9 @@ export default function AppFunctional(props) {
  function getXY(initialGrid,index) {
     // Koordinatları izlemek için bir state e sahip olmak gerekli değildir.
     // Bunları hesaplayabilmek için "B" nin hangi indexte olduğunu bilmek yeterlidir.
-     return [initialGrid[index][0], initialGrid[index][1]]
+     return [initialGrid[index][0] ,initialGrid[index][1]]
   }
+
 
   // const [x,y]=getXY(initialGrid,index)
   // console.log(x,y)
@@ -44,7 +45,9 @@ export default function AppFunctional(props) {
     // return `(${getXY(initialGrid)[index][0]}, ${getXY(initialGrid)[index][1]})`
    const text=[];
    const [x,y]=getXY(initialGrid,index);
+   console.log( getXY(initialGrid,index))
    text[0]=`(${x},${y})`;
+   console.log(`(${x},${y})`)
    text[1]=steps;
    return text;
 
@@ -68,17 +71,21 @@ export default function AppFunctional(props) {
     if(yon === 'sol' && index !==0 && index !==3 && index !==6) {
       setIndex(index - 1)
       setSteps(steps + 1)
+      setMessage("")
     
   } else if (yon === 'sağ' && index !==2 && index !==5 && index !==8) {
       setIndex(index + 1)
       setSteps(steps +1)
+      setMessage("")
     
   } else if (yon === 'aşağı' && index !==6 && index !==7 && index !==8) {
       setIndex(index + 3)
       setSteps(steps + 1)
+      setMessage("")
   } else if(yon === 'yukarı' && index !==0 && index !== 1 && index !== 2) {
       setIndex(index - 3)
       setSteps(steps +1)
+      setMessage("")
   } 
   else {
     if(yon === "sağ") {
@@ -105,11 +112,12 @@ export default function AppFunctional(props) {
   }
 
   function onSubmit(evt) {
+    evt.preventDefault(evt)
     if (email === "") {
       setMessage("Ouch: email is required")
     } else{
     // payloadu POST etmek için bir submit handlera da ihtiyacınız var.
-    evt.preventDefault(evt)
+    
 
 
     const payLoad = {
@@ -120,12 +128,15 @@ export default function AppFunctional(props) {
 
     axios
     .post( "http://localhost:9000/api/result" ,payLoad)
-    .then(res=>
+    .then(response=>
       // console.log(res.data)
-      setMessage(res.data.message))
-    .catch(error => setMessage(error.res.data.message))
-  
-    setEmail(" ")
+      setMessage(response.data.message))
+    .catch(error => 
+      setMessage(error.response.data.message))
+    .finally(()=>{
+      setEmail(initialEmail);
+     
+    })
 
   }
     
