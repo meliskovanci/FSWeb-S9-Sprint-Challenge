@@ -34,8 +34,7 @@ export default function AppFunctional(props) {
   }
 
 
-  // const [x,y]=getXY(initialGrid,index)
-  // console.log(x,y)
+
 
   function getXYMesaj(getXY,initialGrid,index,steps) {
     // Kullanıcı için "Koordinatlar (2, 2)" mesajını izlemek için bir state'in olması gerekli değildir.
@@ -45,9 +44,9 @@ export default function AppFunctional(props) {
     // return `(${getXY(initialGrid)[index][0]}, ${getXY(initialGrid)[index][1]})`
    const text=[];
    const [x,y]=getXY(initialGrid,index);
-   console.log( getXY(initialGrid,index))
+   
    text[0]=`(${x},${y})`;
-   console.log(`(${x},${y})`)
+   
    text[1]=steps;
    return text;
 
@@ -129,7 +128,7 @@ export default function AppFunctional(props) {
     axios
     .post( "http://localhost:9000/api/result" ,payLoad)
     .then(response=>
-      // console.log(res.data)
+      
       setMessage(response.data.message))
     .catch(error => 
       setMessage(error.response.data.message))
@@ -172,8 +171,8 @@ export default function AppFunctional(props) {
         <button onClick={reset} id="reset">reset</button>
       </div>
       <form onSubmit= {onSubmit}>
-        <input onChange={(e)=>onChange(e)} value={email} id="email" type="email" placeholder="email girin"></input>
-        <input id="submit" type="submit"></input>
+        <input onChange={onChange} value={email} id="email" type="email" placeholder="email girin"></input>
+        <input data-testid="submit" id="submit" type="submit"></input>
       </form>
     </div>
   )
