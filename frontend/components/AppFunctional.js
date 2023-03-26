@@ -144,7 +144,7 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Koordinatlar {getXYMesaj(getXY,initialGrid,index,steps)[0]} </h3>
+        <h3 id="coordinates">Koordinatlar {getXYMesaj(getXY,initialGrid,index,steps)[0]}</h3>
         
         <h3 id="steps">{getXYMesaj(getXY,initialGrid,index,steps)[1]} kere ilerlediniz</h3>
 
@@ -172,7 +172,7 @@ export default function AppFunctional(props) {
         <button onClick={reset} id="reset">reset</button>
       </div>
       <form onSubmit= {onSubmit}>
-        <input onChange={onChange} value={email} id="email" type="email" placeholder="email girin"></input>
+        <input onChange={(e)=>onChange(e)} value={email} id="email" type="email" placeholder="email girin"></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
